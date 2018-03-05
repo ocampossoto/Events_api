@@ -18,7 +18,7 @@ module.exports = function(app, db) {
     app.get('/events/', function(req, res) {
         const id = req.params.id;
         const details = { '_id': new ObjectID(id) };
-        db.collection('events').findOne({}, function(err, item){
+        db.collection('events').find({}).toArray(function(err, item){
             if (err)
             {
                 res.send({'error':'An error has occurred'});
@@ -26,6 +26,8 @@ module.exports = function(app, db) {
             else
             {
                 res.send(item);
+                var myJSON = JSON.stringify(item);
+                console.log(myJSON);
             }
         });
     });
